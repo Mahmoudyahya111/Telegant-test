@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TELEGANT — Shop</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="shop.css">
+  <link rel="icon" type="image/png" href="Tfavco-w-transparent.png">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="telegant-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="Tfavco-w-transparent.png" alt="Telegant Logo" class="logo-icon">
+        <div class="logo-text">TELEGANT<span>DEFINED BY ELEGANCE</span></div>
+      </a>
+      <div class="navbar-right">
+        <button class="hamburger" id="menu-btn" aria-label="Toggle Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <ul class="navbar-links" id="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="shop.html" class="active">SHOP</a></li>
+          <li><a href="survey.html">SURVEY</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="track.html">TRACK ORDER</a></li>
+          <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+        <button class="cart-btn" id="cart-btn" aria-label="Cart" onclick="openCartModal()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SHOP HEADER -->
+  <div class="shop-header">
+    <p class="hero-eyebrow">COLLECTION 2025</p>
+    <h1>Mock Neck Essentials</h1>
+    <p>Premium quality. Tailored to you.</p>
+  </div>
+
+  <!-- PRODUCTS GRID -->
+  <main>
+    <div id="products-container"></div>
+  </main>
+
+  <!-- ══════════════════════════════════════
+       MODAL 1: PRODUCT DETAIL (Size + Qty)
+  ══════════════════════════════════════ -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-box product-modal-box">
+      <button class="modal-close" onclick="closeModal('product-modal')">✕</button>
+      
+      <!-- Product Card -->
+      <div class="pm-product-card">
+        <img id="pm-product-img" src="" alt="">
+        <div class="pm-product-info">
+          <h2 id="pm-product-name"></h2>
+          <p id="pm-product-price"></p>
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="pm-section">
+        <label class="input-label">QUANTITY</label>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span id="qty-display">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <!-- Size Selector -->
+      <div class="pm-section">
+        <label class="input-label">SIZE</label>
+        <div class="size-tabs">
+          <button class="size-tab active" data-mode="standard" onclick="switchSizeMode('standard')">STANDARD SIZES</button>
+          <button class="size-tab" data-mode="custom" onclick="switchSizeMode('custom')">CUSTOM</button>
+        </div>
+
+        <!-- Standard Sizes -->
+        <div id="standard-sizes" class="size-options">
+          <div class="size-grid">
+            <div class="size-option" data-size="XS" onclick="selectSize('XS')">
+              <span class="size-label">XS</span>
+              <div class="size-measurements">
+                <span>Chest: 86cm</span>
+                <span>Sleeve: 59cm</span>
+                <span>Length: 65cm</span>
+              </div>
+            </div>
+            <div class="size-option" data-size="S" onclick="selectSize('S')">
+              <span class="size-label">S</span>
+              <div class="size-measurements">
+                <span>Chest: 91cm</span>
+                <span>Sleeve: 61cm</span>
+                <span>Length: 68cm</span>
+              </div>
+            </div>
+            <div class="size-option" data-size="M" onclick="selectSize('M')">
+              <span class="size-label">M</span>
+              <div class="size-measurements">
+                <span>Chest: 97cm</span>
+                <span>Sleeve: 63cm</span>
+                <span>Length: 71cm</span>
+              </div>
+            </div>
+            <div class="size-option" data-size="L" onclick="selectSize('L')">
+              <span class="size-label">L</span>
+              <div class="size-measurements">
+                <span>Chest: 102cm</span>
+                <span>Sleeve: 65cm</span>
+                <span>Length: 74cm</span>
+              </div>
+            </div>
+            <div class="size-option" data-size="XL" onclick="selectSize('XL')">
+              <span class="size-label">XL</span>
+              <div class="size-measurements">
+                <span>Chest: 107cm</span>
+                <span>Sleeve: 67cm</span>
+                <span>Length: 77cm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Size -->
+        <div id="custom-size" class="size-options hidden">
+          <div class="custom-size-preview">
+            <img id="custom-product-img" src="" alt="" class="custom-preview-img">
+            <div class="custom-measurement-guide">
+              <p class="guide-note">Measure yourself and enter your exact dimensions below. We'll tailor it precisely for you.</p>
+            </div>
+          </div>
+          <div class="custom-inputs">
+            <div class="input-group">
+              <label class="input-label">CHEST WIDTH (cm)</label>
+              <input type="number" class="input-field" id="custom-chest" placeholder="e.g. 96" min="60" max="140">
+            </div>
+            <div class="custom-inputs-row">
+              <div class="input-group">
+                <label class="input-label">SLEEVE LENGTH (cm)</label>
+                <input type="number" class="input-field" id="custom-sleeve" placeholder="e.g. 62" min="40" max="80">
+              </div>
+              <div class="input-group">
+                <label class="input-label">BODY LENGTH (cm)</label>
+                <input type="number" class="input-field" id="custom-length" placeholder="e.g. 70" min="50" max="90">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-gold" style="width:100%;margin-top:8px" onclick="proceedToConfirm()">CONFIRM SELECTION →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MODAL 2: ORDER CONFIRMATION POPUP
+  ══════════════════════════════════════ -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('confirm-modal')">✕</button>
+      <p class="modal-title">ORDER SUMMARY</p>
+
+      <div class="confirm-card">
+        <img id="confirm-img" src="" alt="" class="confirm-product-img">
+        <div class="confirm-details">
+          <h3 id="confirm-name"></h3>
+          <p class="confirm-price" id="confirm-price"></p>
+          <div class="confirm-specs">
+            <div class="spec-row"><span>Size</span><strong id="confirm-size"></strong></div>
+            <div class="spec-row"><span>Qty</span><strong id="confirm-qty"></strong></div>
+            <div class="spec-row"><span>Chest</span><strong id="confirm-chest"></strong></div>
+            <div class="spec-row"><span>Sleeve</span><strong id="confirm-sleeve"></strong></div>
+            <div class="spec-row"><span>Length</span><strong id="confirm-length"></strong></div>
+            <div class="spec-row total-row"><span>TOTAL</span><strong id="confirm-total"></strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="confirm-actions">
+        <button class="btn-outline" onclick="addToCart()">ADD TO CART</button>
+        <button class="btn-gold" onclick="proceedToCheckout()">CHECKOUT NOW</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MODAL 3: CART
+  ══════════════════════════════════════ -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('cart-modal')">✕</button>
+      <p class="modal-title">YOUR CART</p>
+      <div id="cart-items-list"></div>
+      <div class="cart-footer" id="cart-footer" style="display:none">
+        <div class="spec-row total-row" style="margin-bottom:16px">
+          <span>CART TOTAL</span><strong id="cart-total-display"></strong>
+        </div>
+        <button class="btn-gold" style="width:100%" onclick="goToCheckout()">PROCEED TO CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MODAL 4: AUTH (Sign In / Sign Up)
+  ══════════════════════════════════════ -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="signin-tab" onclick="switchAuth('signin')">SIGN IN</button>
+        <button class="auth-tab" id="signup-tab" onclick="switchAuth('signup')">SIGN UP</button>
+      </div>
+
+      <!-- Sign In -->
+      <div id="signin-form">
+        <div class="input-group">
+          <label class="input-label">EMAIL</label>
+          <input type="email" class="input-field" id="signin-email" placeholder="your@email.com">
+        </div>
+        <div class="input-group">
+          <label class="input-label">PASSWORD</label>
+          <input type="password" class="input-field" id="signin-password" placeholder="••••••••">
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:8px" onclick="signIn()">SIGN IN & CONTINUE</button>
+        <p class="auth-switch">Don't have an account? <a onclick="switchAuth('signup')">Sign up</a></p>
+      </div>
+
+      <!-- Sign Up -->
+      <div id="signup-form" class="hidden">
+        <div class="input-group">
+          <label class="input-label">FULL NAME</label>
+          <input type="text" class="input-field" id="signup-name" placeholder="Your full name">
+        </div>
+        <div class="input-group">
+          <label class="input-label">EMAIL</label>
+          <input type="email" class="input-field" id="signup-email" placeholder="your@email.com">
+        </div>
+        <div class="input-group">
+          <label class="input-label">PASSWORD</label>
+          <input type="password" class="input-field" id="signup-password" placeholder="At least 8 characters">
+        </div>
+        <button class="btn-gold" style="width:100%;margin-top:8px" onclick="signUp()">CREATE ACCOUNT & CONTINUE</button>
+        <p class="auth-switch">Already have an account? <a onclick="switchAuth('signin')">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Footer -->
+  <footer class="telegant-footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text" style="margin-bottom:10px">TELEGANT<span>DEFINED BY ELEGANCE</span></div>
+        <p>Premium essentials defined by elegance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>NAVIGATE</h4>
+        <a href="shop.html">Shop</a>
+        <a href="survey.html">Survey</a>
+        <a href="about.html">About</a>
+        <a href="track.html">Track Order</a>
+      </div>
+      <div class="footer-col">
+        <h4>CONTACT</h4>
+        <a href="mailto:mahmoudyahya66@gmail.com">mahmoudyahya66@gmail.com</a>
+        <a href="tel:+201101632040">+20 110 163 2040</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TELEGANT. All rights reserved.</span>
+      <span>Defined by Elegance</span>
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script src="cart.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

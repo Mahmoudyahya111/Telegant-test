@@ -1,0 +1,33 @@
+/* SURVEY PAGE */
+.survey-main { padding: 60px 5%; display: flex; justify-content: center; }
+.survey-container { width: 100%; max-width: 600px; }
+.survey-header { text-align: center; margin-bottom: 36px; }
+.survey-header h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; margin-bottom: 10px; }
+.survey-header p { color: rgba(255,255,255,0.45); font-size: 0.9rem; }
+
+.survey-card {
+  background: var(--card-bg); border: 1px solid var(--border-gold);
+  border-radius: 20px; padding: 36px;
+}
+
+.checkbox-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;
+}
+.check-option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border: 1px solid var(--border-gold); border-radius: 8px;
+  cursor: pointer; font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  transition: all 0.25s;
+}
+.check-option:hover { border-color: var(--gold); color: var(--white); }
+.check-option input { accent-color: var(--gold); }
+
+.survey-actions {
+  display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end;
+}
+.survey-actions .btn-outline { text-decoration: none; display: inline-flex; align-items: center; }
+
+@media (max-width: 500px) {
+  .checkbox-grid { grid-template-columns: 1fr; }
+  .survey-actions { flex-direction: column; }
+}

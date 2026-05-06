@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TELEGANT — Checkout</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="checkout.css">
+  <link rel="icon" type="image/png" href="Tfavco-w-transparent.png">
+</head>
+<body>
+
+  <nav class="telegant-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="Tfavco-w-transparent.png" alt="Telegant Logo" class="logo-icon">
+        <div class="logo-text">TELEGANT<span>DEFINED BY ELEGANCE</span></div>
+      </a>
+      <div class="navbar-right">
+        <button class="hamburger" id="menu-btn" aria-label="Toggle Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <ul class="navbar-links" id="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="shop.html">SHOP</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="track.html">TRACK ORDER</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="checkout-main">
+    <div class="checkout-container">
+      
+      <!-- LEFT: FORM -->
+      <div class="checkout-form-col">
+        <h1 class="checkout-title">Checkout</h1>
+
+        <!-- Step 1: Delivery Info -->
+        <div class="checkout-section">
+          <h2 class="section-title"><span class="step-num">01</span> DELIVERY INFORMATION</h2>
+          <div class="form-row">
+            <div class="input-group">
+              <label class="input-label">FULL NAME *</label>
+              <input type="text" class="input-field" id="co-name" placeholder="Your full name">
+            </div>
+            <div class="input-group">
+              <label class="input-label">PHONE NUMBER *</label>
+              <input type="tel" class="input-field" id="co-phone" placeholder="+20 1XX XXX XXXX">
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">EMAIL ADDRESS *</label>
+            <input type="email" class="input-field" id="co-email" placeholder="your@email.com">
+          </div>
+          <div class="input-group">
+            <label class="input-label">DELIVERY ADDRESS *</label>
+            <input type="text" class="input-field" id="co-address" placeholder="Street, Building, Apartment">
+          </div>
+          <div class="form-row">
+            <div class="input-group">
+              <label class="input-label">CITY *</label>
+              <input type="text" class="input-field" id="co-city" placeholder="Cairo">
+            </div>
+            <div class="input-group">
+              <label class="input-label">GOVERNORATE</label>
+              <input type="text" class="input-field" id="co-gov" placeholder="Cairo">
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">DELIVERY NOTES (optional)</label>
+            <textarea class="input-field" id="co-notes" rows="2" placeholder="Any special instructions..."></textarea>
+          </div>
+        </div>
+
+        <!-- Step 2: Payment -->
+        <div class="checkout-section">
+          <h2 class="section-title"><span class="step-num">02</span> PAYMENT METHOD</h2>
+          
+          <div class="payment-options">
+            <label class="payment-option" id="pay-cod-label">
+              <input type="radio" name="payment" value="cod" id="pay-cod" checked onchange="handlePaymentChange()">
+              <div class="payment-content">
+                <div class="payment-icon">💵</div>
+                <div>
+                  <strong>Cash on Delivery</strong>
+                  <p>Pay when your order arrives at your door.</p>
+                </div>
+              </div>
+            </label>
+
+            <label class="payment-option" id="pay-instapay-label">
+              <input type="radio" name="payment" value="instapay" id="pay-instapay" onchange="handlePaymentChange()">
+              <div class="payment-content">
+                <div class="payment-icon">📲</div>
+                <div>
+                  <strong>Instapay Transfer</strong>
+                  <p>Transfer to our Instapay and upload your confirmation screenshot.</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Instapay Details (shown when selected) -->
+          <div id="instapay-section" class="instapay-section hidden">
+            <div class="instapay-info">
+              <p class="instapay-notice">
+                ⚠️ Orders paid via Instapay may take a few minutes to confirm while we verify your transfer.
+              </p>
+              <div class="instapay-account">
+                <p class="input-label">TRANSFER TO:</p>
+                <!-- TODO: Replace with your actual Instapay account number -->
+                <strong class="instapay-number">01101632040</strong>
+                <p class="input-label" style="margin-top:6px">ACCOUNT NAME: TELEGANT</p>
+              </div>
+            </div>
+            <div class="input-group" style="margin-top:16px">
+              <label class="input-label">UPLOAD TRANSFER SCREENSHOT *</label>
+              <div class="upload-area" id="upload-area" onclick="document.getElementById('screenshot-file').click()">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--gold);margin-bottom:8px">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                </svg>
+                <p>Click to upload screenshot</p>
+                <span>PNG, JPG up to 5MB</span>
+              </div>
+              <input type="file" id="screenshot-file" accept="image/*" style="display:none" onchange="handleScreenshot(this)">
+              <div id="screenshot-preview" class="hidden"></div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-gold place-order-btn" id="place-order-btn" onclick="placeOrder()">
+          PLACE ORDER
+        </button>
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div class="checkout-summary-col">
+        <div class="order-summary-box">
+          <h3 class="summary-title">ORDER SUMMARY</h3>
+          <div id="summary-items"></div>
+          <div class="summary-totals">
+            <div class="spec-row"><span>Subtotal</span><strong id="summary-subtotal"></strong></div>
+            <div class="spec-row"><span>Shipping</span><strong>Free</strong></div>
+            <div class="spec-row total-row" style="margin-top:12px">
+              <span>TOTAL</span><strong id="summary-total"></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-box success-modal-box">
+      <div class="success-icon">✦</div>
+      <h2 class="success-title">Order Placed!</h2>
+      <p class="success-sub">Thank you for your order. A confirmation email has been sent to you.</p>
+      <div class="order-number-box">
+        <p class="input-label">YOUR ORDER NUMBER</p>
+        <div class="order-number" id="success-order-number"></div>
+      </div>
+      <p class="success-note" id="instapay-note" style="display:none">
+        ⏳ Your Instapay transfer is being verified. This may take a few minutes. We'll email you once confirmed.
+      </p>
+      <div class="success-actions">
+        <button class="btn-outline" onclick="window.location.href='track.html?order='+currentOrderNum">TRACK MY ORDER</button>
+        <button class="btn-gold" onclick="window.location.href='shop.html'">CONTINUE SHOPPING</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="shared.js"></script>
+  <script src="cart.js"></script>
+  <script src="checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TELEGANT — Style Survey</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="survey.css">
+  <link rel="icon" type="image/png" href="Tfavco-w-transparent.png">
+</head>
+<body>
+  <nav class="telegant-navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="Tfavco-w-transparent.png" alt="Telegant Logo" class="logo-icon">
+        <div class="logo-text">TELEGANT<span>DEFINED BY ELEGANCE</span></div>
+      </a>
+      <div class="navbar-right">
+        <button class="hamburger" id="menu-btn" aria-label="Toggle Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <ul class="navbar-links" id="nav-menu">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="shop.html">SHOP</a></li>
+          <li><a href="survey.html" class="active">SURVEY</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="survey-main">
+    <div class="survey-container">
+      <div class="survey-header">
+        <p class="hero-eyebrow">PERSONALIZED EXPERIENCE</p>
+        <h1>Tell Us Your Style</h1>
+        <p>Help us understand your preferences so we can curate the perfect collection for you.</p>
+      </div>
+
+      <div class="survey-card">
+        <div class="input-group">
+          <label class="input-label">FULL NAME *</label>
+          <input type="text" class="input-field" id="sv-name" placeholder="Your full name">
+        </div>
+        <div class="input-group">
+          <label class="input-label">EMAIL ADDRESS *</label>
+          <input type="email" class="input-field" id="sv-email" placeholder="your@email.com">
+        </div>
+        <div class="input-group">
+          <label class="input-label">DESCRIBE YOUR CLOTHING STYLE *</label>
+          <textarea class="input-field" id="sv-style" rows="4" placeholder="e.g. Basic, oversized, classic, formal, streetwear, minimal..."></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">WHAT CATEGORIES INTEREST YOU?</label>
+          <div class="checkbox-grid">
+            <label class="check-option"><input type="checkbox" value="tshirts"> T-Shirts & Basics</label>
+            <label class="check-option"><input type="checkbox" value="formal"> Formal Wear</label>
+            <label class="check-option"><input type="checkbox" value="casual"> Casual Wear</label>
+            <label class="check-option"><input type="checkbox" value="tech"> Tech Accessories</label>
+            <label class="check-option"><input type="checkbox" value="outerwear"> Outerwear</label>
+            <label class="check-option"><input type="checkbox" value="activewear"> Activewear</label>
+          </div>
+        </div>
+        <div class="survey-actions">
+          <a href="shop.html" class="btn-outline">SKIP FOR NOW</a>
+          <button class="btn-gold" id="sv-submit" onclick="submitSurvey()">SUBMIT & EXPLORE SHOP</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="shared.js"></script>
+  <script src="cart.js"></script>
+  <script>
+  async function submitSurvey() {
+    const name  = document.getElementById('sv-name').value.trim();
+    const email = document.getElementById('sv-email').value.trim();
+    const style = document.getElementById('sv-style').value.trim();
+    if (!name || !email || !style) { showToast('Please fill in all required fields', 'error'); return; }
+
+    const btn = document.getElementById('sv-submit');
+    btn.textContent = 'SENDING...'; btn.disabled = true;
+
+    const interests = [...document.querySelectorAll('.check-option input:checked')].map(c => c.value);
+
+    try {
+      // ── TODO: Replace with your Google Script URL or backend endpoint ──
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyRF3tkP6T86uIkem6QA0zWfiT4bVWTLLHMGGQpmguGFGOQVEnOUFpNXWJKGy67KKEXlQ/exec';
+      const formData = new FormData();
+      formData.append('fullname', name);
+      formData.append('email', email);
+      formData.append('feedback', style);
+      formData.append('interests', interests.join(', '));
+      await fetch(scriptURL, { method: 'POST', body: formData });
+    } catch (e) { /* silent fail on Google Script CORS */ }
+
+    showToast('Thank you! Redirecting to shop...', 'success');
+    setTimeout(() => window.location.href = 'shop.html', 1500);
+  }
+  </script>
+</body>
+</html>
