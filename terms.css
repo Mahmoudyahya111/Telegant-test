@@ -1,0 +1,46 @@
+/* Variables to match your brand palette[cite: 4] */
+:root {
+  --gold: #c8a86a;
+  --white: #ffffff;
+  --card-bg: rgba(13, 13, 13, 0.9);
+  --border-gold: rgba(200, 168, 106, 0.3);
+}
+
+/* Reusing the About Page Layout */
+.about-main { padding: 60px 5%; max-width: 1100px; margin: 0 auto; }
+
+.about-header { text-align: center; margin-bottom: 50px; }
+.hero-eyebrow { color: var(--gold); letter-spacing: 0.2em; font-size: 0.75rem; margin-bottom: 10px; }
+.about-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--white); }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 50px; }
+
+.about-card {
+  background: var(--card-bg); 
+  border: 1px solid var(--border-gold);
+  border-radius: 16px; 
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.about-card h2 { color: var(--gold); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.08em; margin-bottom: 16px; }
+.about-card p { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.8; margin-bottom: 14px; }
+.about-card strong { color: var(--white); }
+
+/* Bottom Trust Items */
+.about-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.value-item {
+  text-align: center; padding: 32px 20px;
+  border: 1px solid var(--border-gold); border-radius: 14px;
+  transition: background 0.3s;
+}
+.value-item:hover { background: rgba(200,168,106,0.06); }
+.value-icon { font-size: 1.4rem; display: block; margin-bottom: 12px; }
+.value-item h3 { font-size: 0.82rem; letter-spacing: 0.12em; color: var(--white); margin-bottom: 8px; }
+.value-item p { font-size: 0.78rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+
+/* Responsive Logic[cite: 5] */
+@media (max-width: 800px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-values { grid-template-columns: 1fr; }
+}
